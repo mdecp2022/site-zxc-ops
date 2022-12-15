@@ -1,10 +1,155 @@
 <h1>About</h1>
 <p>cmsite: wcms use <a href="https://github.com/mdecycu/cmsimde">https://github.com/mdecycu/cmsimde</a> as submodule</p>
 <h1>HW</h1>
-<h2>w13</h2>
+<h2>w15</h2>
+<p>1.為何學習計算機程式需要建立個人倉儲?</p>
+<p>2.全球資訊網能夠甚麼功能或優點? 3.Replit, stud.cycu.org 與 localhost 分別代表甚麼? 4.https, ssh 到底提供使用者那些功能或優點? 5.Brython 與 Python 有甚麼差別? 6.能夠直接在瀏覽器中以 Brython 繪製中華民國國旗, 或模擬綠色方塊在方塊格點中任意移動, 代表甚麼? 7.變數, 字串, 整數, 浮點數, 數列, Tuple, Dictionary, 函式, 重複迴圈, class, 物件導向, 資料庫, 這些名詞對您而言代表甚麼?</p><h2>w10</h2>
+<h2>w11</h2>
+<p>w10成績缺考名單平均計算</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">import ast
+# get stud_list first
+def get_stud(c_name):
+    courses = {"1a": "0747", "1b": "0761", "2a": "0773", "2b": "0786"}
+    #c_name = "1b"
+    c = courses[c_name]
+    url = "https://nfu.cycu.org/?semester=1111&amp;courseno=" + c + "&amp;column=True"
+    data = open(url).read().split("\n")
+    stud = data[:-1]
+    return stud
+    
+cp_stud = get_stud("1b")
+# get w10 quiz result
+cp_w11_quiz_url = "https://gist.githubusercontent.com/mdecycu/9df4b372ac1b7386cf259ced15f1a2b2/raw/8e59f90d8ff4f1ad4fecd4f7ee159f91eb6addf9/cp1b_w11_quiz_result.json"
+cp_w10_quiz_url = "https://gist.githubusercontent.com/mdecycu/9df4b372ac1b7386cf259ced15f1a2b2/raw/a6825f13b1bb0b61e09e74dd117729eefe1d947f/20221110_cp1b_w10_quiz.json"
+def get_score(url):
+    num_stud = 0
+    total_score = 0
+    json_data = open(url).read()
+    big_dict = ast.literal_eval(json_data)
+    data = big_dict["body"]["testuser"]
+    quiz_dict = {}
+    for i in data:
+        stud_id = data[i]["user_name"]
+        stud_score = int(float(data[i]["total_score"]))
+        quiz_dict[stud_id] = stud_score
+        num_stud = num_stud + 1
+        total_score = total_score + stud_score
+    return quiz_dict, num_stud, total_score
+    
+#cp_quiz, num_stud, total_score = get_score(cp_w10_quiz_url)
+cp_quiz, num_stud, total_score = get_score(cp_w11_quiz_url)
+cp_abs = []
+for stud in cp_stud:
+    try:
+        print(stud, cp_quiz[stud])
+    except:
+        # 缺考者沒有 quiz 成績
+        print(stud, "缺")
+        cp_abs.append(stud)
+print("\n考試平均分數為:", int(total_score/num_stud))
+# 列出缺考名單
+print("="*20)
+print("以下為 w10 缺考名單:")
+for stud in cp_abs:
+    print(stud)</pre>
+<h2>w12</h2>
+<div class="container">
+<p>輸入攝氏的溫度值</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># Brython 的 input() 可以接受輸入提示字串, 跳出瀏覽器輸入表單後, 將輸入內容以字串取回
+user_input_temp = input("請輸入攝氏溫度值:")
+# 接著列出 user_input_temp 變數的資料型別
+print(type(user_input_temp))</pre>
+<p>回傳出攝氏和華氏的溫度值</p>
+<div class="container">
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># Brython 的 input() 可以接受輸入提示字串, 跳出瀏覽器輸入表單後, 將輸入內容以字串取回
+user_input_temp = input("請輸入攝氏溫度值:")
+# 接著列出 user_input_temp 變數的資料型別
+print(type(user_input_temp))
+# 到這裡已知利用 input() 函式將傳回字串, 接著以 float() 將字串轉為浮點數
+user_input_temp = float(user_input_temp)
+# 因為攝氏溫度乘上 9/5 之後再加上 32 就可以得到對應的華氏溫度值
+Fahrenheit = (user_input_temp*9/5) + 32
+# 到這裡, Fahrenheit 資料型別為浮點數, 而 user_input_temp 在第 8 行也轉為浮點數
+# 要將兩個浮點數與字串相加, 都必須透過 str() 轉為字串
+print("攝氏 " + str(user_input_temp) + " 度, 等於華氏 " + str(Fahrenheit) + " 度.")</pre>
+<p></p>
+<p></p>
+</div>
+</div><h2>w13</h2>
 <p>f = c*5/9+32</p>
 <p>c = (f-32)*9/5</p>
-<p>溫度轉換程式連結</p><h1>cp2022</h1>
+<p><a href="https://mdecp2022.github.io/zxc-ops/content/Brython.html?src=https://gist.githubusercontent.com/zxc-ops/534380e6afecc1f2ea148f9d26c65297/raw/2ec73e568b070e50430a43029bcb8c49cb0e25a1/w13-1.py">溫度轉換程式連結</a></p>
+<h2>w14</h2>
+<p>修改之前教的東西，好像是w11 還是 10的樣子 我也忘了</p>
+<p></p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># 導入 ast 模組是希望利用其 literal_eval() 將 dict 格式的字串轉為 dict 資料型別
+# 以利隨後的取值運算
+import ast
+# 定義一個函式, 以班級代號字串作為輸入, 可以傳回各班修課學員的學號數列
+def get_stud(c_name):
+    # 將課程的班級代號字串作為 dict 的 key, 而 2022 fall 的課程代號作為對應值
+    # 使用者可以利用班級代號從 courses dict 取出課程代號
+    courses = {"1a": "0747", "1b": "0761", "2a": "0773", "2b": "0786"}
+    # 利用 c_name 從 courses 得到該學期的課程代號
+    c = courses[c_name]
+    # 利用課程代號從學校教務主機取的該班修課人員名單
+    url = "https://nfu.cycu.org/?semester=1111&amp;courseno=" + c + "&amp;column=True"
+    # 讀出各修課人員資料後, 以跳行符號切割, 得到的 data 為數列
+    data = open(url).read().split("\n")
+    # 因為最後一筆資料為空字串, 因此利用數列運算將其去除
+    stud = data[:-1]
+    # get_stud() 函式最後將對應班級的修課人員學號以數列格式傳回
+    return stud
+# 利用 "1b" 作為輸入從 get_stud() 取出該班修課學員學號數列
+cp_stud = get_stud("1b")
+# get w10 quiz result
+# # 以下為 1b w10 quiz 考試結果的 JSON 檔案
+cp_w14_quiz_url = "https://gist.githubusercontent.com/mdecycu/9df4b372ac1b7386cf259ced15f1a2b2/raw/a0be253dc36fb3d0d2e1878950dae0b13d07a8f6/2022_1208_cp_w14_1b_quiz.json"
+def get_score(url):
+    # 利用 open() 與 read() 讀取考試結果 JSON 檔案
+    json_data = open(url).read()
+    # 利用 ast.literal_eval() 將字串 dict, 轉為程式可用的 dict 資料型別
+    big_dict = ast.literal_eval(json_data)
+    # 從 big_dict 中, 取出 body 中的 testuser 欄位資料
+    data = big_dict["body"]["testuser"]
+    # 定義一個空 dict 資料變數, 隨後利用迴圈逐一將學號作為 key, 考試成績為 valude
+    # 組成 quiz_dict 的資料內容, 以便之後可以用學號當作輸入, 取得該員考試成績
+    quiz_dict = {}
+    for i in data:
+        # data 資料中的 user_name 為考試學員的帳號, 也就是學號
+        stud_id = data[i]["user_name"]
+        # data 資料中的 total_score 欄位為考試成績
+        # 因為考試成績為字串, 先轉為浮點數後, 再轉為整數
+        stud_score = int(float(data[i]["total_score"]))
+        # 逐一以學號為 key, 考試成績為對應 value, 將資料放入 quiz_dict
+        quiz_dict[stud_id] = stud_score
+    # 取得各學員的考試成績 quiz_dict 後, 將資料傳回
+    return quiz_dict
+# 從考試 JSON 檔案中取得考試結果的字典資料
+cp_quiz = get_score(cp_w14_quiz_url)
+# 設定一個空數列, 隨後將利用 append() 方法, 將缺考學員學號存入
+cp_abs = []
+# 從修課學員數列中, 逐一按照學號次序, 以重複迴圈將學號對應至 stud 變數
+for stud in cp_stud:
+    # 因為缺考學員在考試結果的 dict 中並無資料, 因此利用 try except 進行判斷
+    try:
+        # 針對 stud 學號, 有考試成績者, 列出其學號與得分
+        print(stud, cp_quiz[stud])
+    except:
+        # 缺考者沒有 quiz 成績, 則在其成績欄位印出"缺"
+        print(stud, "缺")
+        # 同時將缺考學員學號以 append() 方法逐一置入
+        cp_abs.append(stud)
+# 列出缺考名單
+print("="*20)
+print("以下為 w14 缺考名單:")
+# 因為 cp_abs 資料為 list, 在此利用 for 迴圈逐一列出
+for stud in cp_abs:
+    print(stud)</pre>
+<p></p>
+<p>
+<script src="https://unpkg.com/three@0.144.0/build/three.js" type="text/javascript"></script>
+</p><h1>cp2022</h1>
 <p><a href="https://en.wikipedia.org/wiki/Python_(programming_language)">https://en.wikipedia.org/wiki/Python_(programming_language)</a></p>
 <h4>Examples:</h4>
 <p style="padding-left: 30px;"><a href="https://gist.github.com/mdecycu/d9082d678096bd58378d6afe2c7fa05d">https://gist.github.com/mdecycu/d9082d678096bd58378d6afe2c7fa05d</a></p>
