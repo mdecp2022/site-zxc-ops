@@ -141,31 +141,38 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">w11 << <a href='w11.html'>Previous</a> <a href='w13.html'>Next</a> >> w13<br /><h1>w12</h1>
-<div class="container">
-<p>輸入攝氏的溫度值</p>
-<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># Brython 的 input() 可以接受輸入提示字串, 跳出瀏覽器輸入表單後, 將輸入內容以字串取回
-user_input_temp = input("請輸入攝氏溫度值:")
-# 接著列出 user_input_temp 變數的資料型別
-print(type(user_input_temp))</pre>
-<p>回傳出攝氏和華氏的溫度值</p>
-<div class="container">
-<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false"># Brython 的 input() 可以接受輸入提示字串, 跳出瀏覽器輸入表單後, 將輸入內容以字串取回
-user_input_temp = input("請輸入攝氏溫度值:")
-# 接著列出 user_input_temp 變數的資料型別
-print(type(user_input_temp))
-# 到這裡已知利用 input() 函式將傳回字串, 接著以 float() 將字串轉為浮點數
-user_input_temp = float(user_input_temp)
-# 因為攝氏溫度乘上 9/5 之後再加上 32 就可以得到對應的華氏溫度值
-Fahrenheit = (user_input_temp*9/5) + 32
-# 到這裡, Fahrenheit 資料型別為浮點數, 而 user_input_temp 在第 8 行也轉為浮點數
-# 要將兩個浮點數與字串相加, 都必須透過 str() 轉為字串
-print("攝氏 " + str(user_input_temp) + " 度, 等於華氏 " + str(Fahrenheit) + " 度.")</pre>
-<p></p>
-<p></p>
-</div>
-</div>
-<br />w11 << <a href='w11.html'>Previous</a> <a href='w13.html'>Next</a> >> w13</div>
+    <div id="tipue_search_content">w15 << <a href='w15.html'>Previous</a> <a href='cp2022.html'>Next</a> >> cp2022<br /><h1>w16</h1>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def sysCall_thread():
+    #global stepx, stepy
+    # uncomment following for async./non-stepped mode:
+    sim.setThreadAutomaticSwitch(True)
+    print( "From threaded Python child script, threadMain")
+    cube=sim.getObject('.')
+    wnum = 2.5
+    hnum = 2.5
+    stepx = 0
+    stepy = 0
+    s = 0.004
+    pos=sim.getObjectPosition(cube,sim.handle_world)
+    while sim.getThreadExistRequest() == False:
+        x = round(pos[0], 2)
+        y = round(pos[1],2)
+        if x &lt; hnum and y == 0:
+            stepx = s
+            stepy = 0
+        elif y &lt; wnum and x == hnum:
+            stepx = 0
+            stepy = s
+        elif x == hnum and y == wnum:
+            stepx = -s
+            stepy = 0
+        elif y == wnum and x == 0:
+            stepx = 0
+            stepy = -s
+        pos[0] = pos[0] + stepx
+        pos[1] = pos[1] + stepy
+        sim.setObjectPosition(cube,sim.handle_world,pos)
+    print("From threaded Python child script, cleanup")</pre><br />w15 << <a href='w15.html'>Previous</a> <a href='cp2022.html'>Next</a> >> cp2022</div>
         
     <!-- footer -->
       <div class="container">
